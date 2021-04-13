@@ -21,19 +21,19 @@ public class SpringRequestMappingExtractor {
     AbstractHandlerMethodMapping abstractHandlerMethodMapping;
 
     public SpringRequestMappingExtractor(ApplicationContext applicationContext) throws Exception {
-        if(applicationContext == null) {
+        if(applicationContext == null) { // We will need the application context to get access to the bean of Spring Framework
             throw new Exception("applicationContext is null");
         }
-        this.abstractHandlerMethodMapping = (RequestMappingHandlerMapping) applicationContext.getBean("requestMappingHandlerMapping");
+        this.abstractHandlerMethodMapping = (RequestMappingHandlerMapping) applicationContext.getBean("requestMappingHandlerMapping"); // All request mapping and handler are defined here. We get reference of it.
     }
 
     public Map<String, Map<String, ExtractedMethod>> ExtractRequestMappings() throws Exception {
-        if(this.abstractHandlerMethodMapping == null) {
+        if(this.abstractHandlerMethodMapping == null) { // Just pre-cautionary check
             throw new Exception("abstractHandlerMethodMapping is null");
         }
 
         Map<String, Map<String, ExtractedMethod>> controllers = new HashMap<>();
-        Map<RequestMappingInfo, HandlerMethod> handlerMethods = this.abstractHandlerMethodMapping.getHandlerMethods();
+        Map<RequestMappingInfo, HandlerMethod> handlerMethods = this.abstractHandlerMethodMapping.getHandlerMethods(); //Every method for request mapping are annotated we will access get the method names
         for (Map.Entry item : handlerMethods.entrySet()) {
             RequestMappingInfo requestMappingInfo = (RequestMappingInfo) item.getKey();
             HandlerMethod handlerMethod = (HandlerMethod) item.getValue();
@@ -113,8 +113,6 @@ public class SpringRequestMappingExtractor {
             String delta = requestMethod.toString();
             if (delta != null) {
                 if (!method.verbs.containsKey(delta)) {
-                    //method.httpVerbs.add(delta);
-
                     ExtractedHttpVerb verb = new ExtractedHttpVerb();
                     verb.parameters.addAll(extractMethodParameters(handlerMethod));
                     method.verbs.put(delta, verb);
