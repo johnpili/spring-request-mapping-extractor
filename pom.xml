@@ -6,7 +6,7 @@
 
     <groupId>com.johnpili</groupId>
     <artifactId>spring-request-mapping-extractor</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -30,7 +30,7 @@
     <developers>
         <developer>
             <name>John Pili</name>
-            <email>mrprintedwall@gmail.com</email>
+            <email>johnpili@johnpili.com</email>
             <organization>John Pili</organization>
             <organizationUrl>https://www.johnpili.com</organizationUrl>
         </developer>
